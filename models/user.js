@@ -6,7 +6,6 @@ const UserSchema = {
 		id: 'string',
 		auth: {type: 'Auth'},
 		state: {type: 'State'},
-		summary: {type: 'list', objectType: 'Reflection'}
 	}
 };
 
@@ -25,26 +24,18 @@ const StateSchema = {
 	name: 'State',
 	properties: {
 		program: {type: 'string', optional: true},
-		currentSet: {type: 'int', optional: true},
 		totalPullups: {type: 'int', optional: true},
-		maxPullups: {type: 'int', optional: true}
+		maxPullups: {type: 'int', optional: true},
+		week:{type: 'int', optional: true},
+		day:{type: 'int', optional: true},
 	}
 };
 
-const ReflectionSchema = {
-	name: 'Reflection',
-	properties: { 
-		finishedDate: 'date',
-		formatDate: 'string',
-		memo: 'string',
-		difficulty: 'int'
-	}
-}
 
-// Initialize a Realm with Car and Person models
 let userRealm = new Realm({
-	schema: [UserSchema, AuthSchema, StateSchema, ReflectionSchema],
-	schemaVersion: 5,
+	path: './realmDB/user.realm',
+	schema: [UserSchema, AuthSchema, StateSchema],
+	schemaVersion: 7,
 	migration: function(oldRealm, newRealm) {
 		newRealm.deleteAll();
 	}

@@ -1,182 +1,248 @@
 const programs = [
 	{
-		name: 'make one count',
-		maxPullups: 3,
+		name: 'Recon Ron - NEGATIVE',
+		min: 0,
+		max: 3,
+		instruction: {
+			title: 'Negative pullup sets to achieve full 3 pullups',
+		},
 		sets: {
-			'1': {
-				week: 1,
-				day: 1,
-				exercise: {
-					WarmUp: {
-						qty: 1,
-						sets: 1
+			1: {
+				exercise_description: [
+				'Start from top then slowly descend while counting 3 seconds',
+				'Concentrate while you in descending position',
+				'Focus on your forearm and back muscle burning'
+				],
+				shortenedSet: [6, 5, 5, 4, 3],
+				set: [
+					{
+						exercise: 'Negative Pullup',
+						rep: 6,
+					}, 
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Pull-up assessment': {
-						qty: 0,
-						sets: 1,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Hollow Rocks': {
-						qty: 10,
-						sets: 2,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 4,
 					},
-					'Scapular retractions': {
-						qty: 5,
-						sets: 2,
-						rest: 90
-					},
-					'Dead hangs': {
-						timeArray: [15, 30, 15],
-						sets: 2,
-						rest: 90
-					},
-					'Planks': {
-						time: 20,
-						sets: 8,
-						rest: 10
+					{
+						exercise: 'Negative Pullup',
+						rep: 3,
 					}
-				}
+				]
 			},
-			'2': {
-				week: 1,
-				day: 2,
-				exercise: {
-					WarmUp: {
-						qty: 1,
-						sets: 1
+			2: {
+				exercise_description: [
+				'Start from top then slowly descend while counting 3 seconds',
+				'Concentrate while you in descending position',
+				'Focus on your forearm and back muscle burning'
+				],
+				shortenedSet: [7, 6, 5, 4, 4],
+				set: [
+					{
+						exercise: 'Negative Pullup',
+						rep: 7,
+					}, 
+					{
+						exercise: 'Negative Pullup',
+						rep: 6,
 					},
-					'Pull-up assessment': {
-						qty: 0,
-						sets: 1,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Body-weight negatives': {
-						time: 3,
-						sets: 8,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 4,
 					},
-					'Jumping pull-ups': {
-						qty: 1,
-						sets: 10,
-						rest: 90
-					},
-					'Modified L-Sits': {
-						timeArray: [5, 10, 15],
-						sets: 2,
-						rest: 90
-					},
-					'Burpees': {
-						time: 20,
-						sets: 8,
-						rest: 10
+					{
+						exercise: 'Negative Pullup',
+						rep: 4,
 					}
-				}
+				]
 			},
-			'3': {
-				week: 1,
-				day: 3,
-				exercise: {
-					WarmUp: {
-						qty: 1,
-						sets: 1
+			3: {
+				exercise_description: [
+				'Start from top then slowly descend while counting 3 seconds',
+				'Concentrate while you in descending position',
+				'Focus on your forearm and back muscle burning'
+				],
+				shortenedSet: [8, 6, 5, 5, 4],
+				set: [
+					{
+						exercise: 'Negative Pullup',
+						rep: 8,
+					}, 
+					{
+						exercise: 'Negative Pullup',
+						rep: 6,
 					},
-					'Pull-up assessment': {
-						qty: 0,
-						sets: 1,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Body-weight negatives': {
-						time: 3,
-						sets: 8,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Partial ROM pull-ups': {
-						qty: 4,
-						sets: 1,
-						rest: 90
-					},
-					'Hanging leg raise': {
-						qty: 4,
-						sets: 2,
-						rest: 90
-					},
-					'Sprints': {
-						time: 30,
-						sets: 6
+					{
+						exercise: 'Negative Pullup',
+						rep: 4,
 					}
-				}
+				]
 			},
-			'4': {
-				week: 1,
-				day: 4,
-				exercise: {
-					WarmUp: {
-						qty: 1,
-						sets: 1
+			4: {
+				exercise_description: [
+				'Start from top then slowly descend while counting 3 seconds',
+				'Concentrate while you in descending position',
+				'Focus on your forearm and back muscle burning'
+				],
+				shortenedSet: [8, 7, 5, 5, 5],
+				set: [
+					{
+						exercise: 'Negative Pullup',
+						rep: 8,
+					}, 
+					{
+						exercise: 'Negative Pullup',
+						rep: 7,
 					},
-					'Pull-up assessment': {
-						qty: 0,
-						sets: 1,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Body-weight negatives': {
-						time: 3,
-						sets: 8,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Jumping pull-ups': {
-						qty: 1,
-						sets: 10,
-						rest: 90
-					},
-					'Dead hangs': {
-						timeArray: [15, 30, 15],
-						sets: 2,
-						rest: 90
-					},
-					'Squats': {
-						time: 20,
-						sets: 8,
-						rest: 10
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					}
-				}
+				]
 			},
-			'5': {
-				week: 1,
-				day: 5,
-				exercise: {
-					WarmUp: {
-						qty: 1,
-						sets: 1
+			5: {shortenedSet: [9, 7, 6, 5, 5]},
+			6: {shortenedSet: [10, 7, 6, 6, 5]},
+			7: {shortenedSet: [10, 8, 6, 6, 6]},
+			8: {shortenedSet: [11, 8, 7, 6, 6]},
+			9: {shortenedSet: [12, 8, 7, 7, 6]},
+			10: {shortenedSet: [12, 9, 7, 7, 7]}
+		}
+	},
+	{
+		name: 'Recon Ron - MIX',
+		min: 2,
+		max: 5,
+		instruction: {
+			title: 'Full Pullup Then Negative Pullup to achieve 5 pullups',
+			exercise_description: [
+				'Give your max strength to try full pullups. Then, do negative pullups for rest of reps',
+				'Jump from bottom to touch chin on bar, then slowly descend while counting 3 seconds'
+			]
+		},
+		sets: {
+			1: {
+				exercise_description: [
+				'Start from top then slowly descend while counting 3 seconds',
+				'Concentrate while you in descending position',
+				'Focus on your forearm and back muscle burning'
+				],
+				set: [
+					{
+						exercise: 'Negative Pullup',
+						rep: 6,
+					}, 
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Pull-up assessment': {
-						qty: 0,
-						sets: 1,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 5,
 					},
-					'Body-weight negatives': {
-						time: 3,
-						sets: 8,
-						rest: 90
+					{
+						exercise: 'Negative Pullup',
+						rep: 4,
 					},
-					'Partial ROM pull-ups': {
-						qty: 4,
-						sets: 1,
-						rest: 90
-					},
-					'Hanging leg raises': {
-						qty: 4,
-						sets: 2,
-						rest: 90
-					},
-					'400M Jog': {
-						qty: 5,
-						sets: 1,
-						rest: 10
+					{
+						exercise: 'Negative Pullup',
+						rep: 3,
 					}
-				}
-			}
+				]
+			},
+			2: [7, 6, 5, 4, 4],
+			3: [8, 6, 5, 5, 4],
+			4: [8, 7, 5, 5, 5],
+			5: [9, 7, 6, 5, 5],
+			6: [10, 7, 6, 6, 5],
+			7: [10, 8, 6, 6, 6],
+			8: [11, 8, 7, 6, 6],
+			9: [12, 8, 7, 7, 6],
+			10: [12, 9, 7, 7, 7]
+		}
+	},
+	{
+		name: 'Recon Ron - TO THE TOP',
+		min: 5,
+		max: 30,
+		instruction: {
+			title: 'Push yourself to reach 30 pullups once with Recon Ron marine program.',
+			exercise_description: [
+				'you must start from a dead hang',
+				'Grasp the bar with your palms facing forward or to the rear',
+				'Your legs can be straight or bent but are not allowed to be above the waist',
+				'Whipping, kicking, kipping, or any leg movement seen to assist with vertical progression is not allowed and if observed that pull-up will result in no count for that pull-up.'
+			]
+		},
+		sets: {
+			1: {
+				title: "START IS HALF",
+				type: 'Full Pullup Exercise',
+				set: [6, 5, 5, 4, 3],
+			},
+			2: [7, 6, 5, 4, 4],
+			3: [8, 6, 5, 5, 4],
+			4: [8, 7, 5, 5, 5],
+			5: [9, 7, 6, 5, 5],
+			6: [10, 7, 6, 6, 5],
+			7: [10, 8, 6, 6, 6],
+			8: [11, 8, 7, 6, 6],
+			9: [12, 8, 7, 7, 6],
+			10: [12, 9, 7, 7, 7],
+			11: [13, 9, 8, 7, 7],
+			12: [14, 9, 8, 8, 7],
+			13: [14, 10, 8, 8, 8],
+			14: [15, 10, 9, 8, 8],
+			15: [16, 10, 9, 9, 8],
+			16: [16, 11, 9, 9, 9],
+			17: [17, 11, 10, 9, 9],
+			18: [18, 11, 10, 10, 9],
+			19: [18, 12, 10, 10, 10],
+			20: [19, 12, 11, 10, 10],
+			21: [20, 12, 11, 11, 10],
+			22: [20, 13, 11, 11, 11],
+			23: [21, 13, 12, 11, 11],
+			24: [21, 13, 12, 12, 11],
+			25: [22, 14, 12, 12, 12],
+			26: [23, 14, 13, 12, 12],
+			27: [24, 14, 13, 13, 12],
+			28: [24, 15, 13, 13, 13],
+			29: [25, 15, 14, 13, 13],
+			30: [26, 15, 14, 14, 13],
+			31: [26, 16, 14, 14, 14],
+			32: [27, 16, 15, 14, 14],
+			33: [28, 16, 15, 15, 14],
+			34: [28, 17, 15, 15, 15],
+			35: [29, 17, 16, 15, 15],
+			36: [30, 17, 16, 16, 15],
+			37: [30, 18, 16, 16, 16],
+			38: [31, 18, 17, 16, 16]
 		}
 	}
 ];

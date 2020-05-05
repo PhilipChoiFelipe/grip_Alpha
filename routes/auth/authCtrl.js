@@ -1,11 +1,18 @@
+//Realm Database
 const userRealm = require('../../models/user');
+const summaryRealm = require('../../models/summary');
+
+//util
 const sendMail = require('../../lib/email/email');
+const errorHandler = require('../../lib/errorHandler/errorHandler');
+const _ = require('lodash');
+
+//authentication
 const bcrypt = require('bcrypt');
 const Joi = require('@hapi/joi');
 const uuidv4 = require('uuid');
 const jwt = require('jsonwebtoken');
-const _ = require('lodash');
-// var hbs = require('nodemailer-express-handlebars');
+
 
 /*
 	generates JWT token with user information
@@ -14,7 +21,7 @@ const generateToken = user => {
 	const omittedAuth = _.omit(user.auth, 'hashedPassword');
 	user = {
 		id: user.id,
-		auth: omittedAuth,
+		auth: omittedAuth
 	};
 	const token = jwt.sign(
 		{
@@ -48,19 +55,17 @@ exports.logIn = (req, res, next) => {
 		email: email,
 		password: password
 	});
-	console.log('login info: ', email, ', ', password);
 	if (error) {
-		console.log(error);
-		next(error);
+		next(errorHandler(400, error.message));
 	} else {
 		let user = userRealm.objects('User').filtered(`auth.email == "${email}"`)[0];
-		console.log('loggedin user: ', JSON.stringify(user));
 		if (!user) {
-			console.log(`No such user with email ${email}`);
-			res.send(`No such user with email ${email}`);
+			// console.log(`No such user with email ${email}`);
+			// res.send(`No such user with email ${email}`);
+			next(errorHandler(400, `No such user with email ${email}`));
 		} else {
 			if (user.auth.activated == false) {
-				console.log(JSON.stringify(user));
+				// console.log(JSON.stringify(user));
 				res.send(`verification email sent to ${email}, please verify to login`);
 			} else {
 				bcrypt.compare(password, user.auth.hashedPassword, (err, result) => {
@@ -68,8 +73,7 @@ exports.logIn = (req, res, next) => {
 						next(err);
 					} else {
 						if (!result) {
-							console.log('Type correct password!');
-							res.send('Type correct password!');
+							 next(errorHandler(400, 'Type correct password!'));
 						} else {
 							console.log('Successfully Logged in');
 							const jwtToken = generateToken(user);
@@ -80,9 +84,11 @@ exports.logIn = (req, res, next) => {
 								state: user.state,
 								summary: user.summary
 							};
+							console.log("\x1b[46m%s\x1b[0m", 'LOGIN');
+							console.log("\x1b[42m%s\x1b[0m", 'LOGGED_IN_USER:', user.auth.email);
+							console.log("\x1b[42m%s\x1b[0m", 'USER_TOKEN:', jwtToken);
 							res.send({
 								jwtToken,
-								user
 							});
 						}
 					}
@@ -127,15 +133,20 @@ exports.signUp = (req, res, next) => {
 		let user = userRealm.objects('User').filtered(`auth.email == "${email}"`);
 		if (!user.isEmpty()) {
 			console.log(`${email} is already signed in`);
-			res.send(`${email} is already signed in: ${username}`);
+			// res.send(`${email} is already signed in: ${username}`);
+			const error = new Error(`${email} is already signed in: ${username}`);
+			// error.massage = `${email} is already signed in: ${username}`;
+			error.status = 400;
+			next(error);
 		} else {
 			bcrypt.hash(password, 10, (err, hash) => {
 				if (err) {
 					next(err);
 				}
+				const userID = uuidv4.v4();
 				userRealm.write(() => {
 					userRealm.create('User', {
-						id: uuidv4.v4(),
+						id: userID,
 						auth: {
 							email: email,
 							username: username,
@@ -144,6 +155,11 @@ exports.signUp = (req, res, next) => {
 						}
 					});
 				});
+				summaryRealm.write(() => {
+					summaryRealm.create('Summary', {
+						id: userID
+					})
+				})
 				// console.log('user:', user);
 				// console.log('userDB length:', user.length);
 				req.user = user;
@@ -163,15 +179,15 @@ exports.sendVerifyingMail = (req, res, next) => {
 	// console.log('email User:', JSON.stringify(user));
 	const link = `"pullup-alpha-fzetd.run.goorm.io/auth/verify/${user.id}"`;
 	console.log('verifying link: ', link);
-	// sendMail.sendMail(
-	// 	`${user.auth.email}`,
-	// 	'PullUp verification email',
-	// 	`<h1>Hello ${user.auth
-	// 		.username}</h1> <p>This is verification email for you!</p> <a href=${link}><button>click to verify</button></a>`
-	// );
+	sendMail.sendMail(
+		`${user.auth.email}`,
+		'PullUp verification email',
+		`<h1>Hello ${user.auth
+			.username}</h1> <p>This is verification email for you!</p> <a href=${link}><button>click to verify</button></a>`
+	);
 	res.send({
 		emailSent: true,
-		reciever: user.auth.email
+		reciever: user.auth.email,
 	});
 };
 
@@ -199,10 +215,8 @@ exports.verify = (req, res, next) => {
 			state: user.state,
 			summary: user.summary
 		};
-		res.send({
-			jwtToken,
-			user
-		});
+		// res.redirect('https://pullup-reactnative-ehuzf.run.goorm.io');
+		res.send('WELCOME TO MINSEOK WORLD!')
 	} catch (error) {
 		next(error);
 	}
