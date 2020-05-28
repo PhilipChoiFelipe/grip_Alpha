@@ -1,6 +1,7 @@
 const userRealm = require('../../models/user');
 const _ = require('lodash');
 const programs = require('../../models/programs');
+const omitPrivate = require('../../lib/omitPrivate');
 
 /*
 	GET
@@ -13,7 +14,8 @@ exports.check = (req, res, next) => {
 	console.log("\x1b[46m%s\x1b[0m", 'CHECK');
 	console.log("\x1b[42m%s\x1b[0m", 'CHECKED_USER:', user.auth.email);
 	try {
-		res.send(JSON.parse(JSON.stringify(user)));
+		const omittedUser = omitPrivate(user);
+		res.send(JSON.parse(JSON.stringify(omittedUser)));
 	} catch (err) {
 		next(err);
 	}
@@ -49,7 +51,8 @@ exports.getWeeks = (req, res, next) => {
 */
 exports.nextWeek = (req, res, next) => {
 	let user = req.filteredUser;
-	const { nextWeek } = req.body;
+	const { nextWeek, pullupCount } = req.body;
+	console.log('Pullup Count: ', pullupCount);
 	try{
 		userRealm.write(() => {
 			if(nextWeek == true){
@@ -58,8 +61,10 @@ exports.nextWeek = (req, res, next) => {
 			}else{
 				user.state.day++;
 			}
+			user.state.totalPullups += pullupCount;
 		})
-		res.send(user);
+		const omittedUser = omitPrivate(user);
+		res.send(omittedUser);
 	}catch(err){
 		next(err);
 	}
@@ -94,8 +99,9 @@ exports.selectWeek = (req, res, next) => {
 					week: selectedWeek
 			}
 		});
+		const omittedUser = omitPrivate(user);
 		res.send({
-			user,
+			user: omittedUser,
 			program: selectedProgram
 		})
 	}catch(err){
@@ -152,10 +158,11 @@ exports.updateMax = (req, res, next) => {
 		console.log("\x1b[42m%s\x1b[0m", 'STAY:', stay);
 		console.log("\x1b[42m%s\x1b[0m", 'UPDATED_MAX:', maxPullups);
 		console.log("\x1b[42m%s\x1b[0m", 'REC_PROGRAMS_NAMES:', programsRec);
+		const omittedUser = omitPrivate(user);
 		res.send({
 			programs: programsRec,
 			stay,
-			user
+			user: omittedUser
 		});
 		// res.send(JSON.parse(JSON.stringify(user)));
 	} catch (err) {
@@ -175,17 +182,18 @@ exports.decideProgram = (req, res, next) => {
 		res.send('User Stays');
 	} else {
 		let user = req.filteredUser;
+		console.log("\x1b[42m%s\x1b[0m", 'CHOSEN_PROGRAM:', user);
 		try {
 			userRealm.write(() => {
 				user.state.program = programName;
 				user.state.currentSet = 1;
-				user.state.totalPullups = 0;
 				user.state.week = 1;
 				user.state.day = 1
 			});
 			console.log("\x1b[46m%s\x1b[0m", 'DECIDE_PROGRAM');
 			console.log("\x1b[42m%s\x1b[0m", 'CHOSEN_PROGRAM:', programName);
-			res.send(user);
+			const omittedUser = omitPrivate(user);
+			res.send(omittedUser);
 		} catch (err) {
 			next(err);
 		}

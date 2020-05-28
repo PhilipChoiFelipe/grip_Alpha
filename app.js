@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var allowCrossDomain = require('./lib/middleware/CORS');
 const { PORT } = process.env;
 
 var api = require('./routes/index');
@@ -17,6 +18,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(allowCrossDomain);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,14 +36,8 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-  // res.send(err);
+	console.log('\x1b[41m%s\x1b[0m', 'ERROR_STATUS:', err.status, '\x1b[41mERROR_MESSAGE:\x1b[0m', err.message);
+	res.status(err.status || 500).send({message: err.message});
 });
 app.listen(PORT, () => console.log('Running server with port %d!', PORT));
 

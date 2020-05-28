@@ -66,7 +66,7 @@ exports.logIn = (req, res, next) => {
 		} else {
 			if (user.auth.activated == false) {
 				// console.log(JSON.stringify(user));
-				res.send(`verification email sent to ${email}, please verify to login`);
+				next(errorHandler(400, `verification email sent to ${email}, please verify to login`));
 			} else {
 				bcrypt.compare(password, user.auth.hashedPassword, (err, result) => {
 					if (err) {

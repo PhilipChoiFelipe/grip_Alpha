@@ -16,7 +16,7 @@ const formatDate = require('../../lib/formatDate');
 	(1)returns all user's reflections
 */
 exports.getReflections = (req, res, next) => {
-    const { id } = req.user.user;
+    const { id } = req.filteredUser;
     console.log('user ID:', id);
     try {
         let reflections = summaryRealm.objects('Summary').filtered(`id == "${id}"`)[0].reflection;
@@ -37,7 +37,7 @@ exports.getReflections = (req, res, next) => {
 */
 exports.getDayReflection = (req, res, next) => {
     const { formattedDate } = req.body;
-    const { id } = req.user.user;
+    const { id } = req.filteredUser;
     try {
         let reflections = summaryRealm.objects('Summary').filtered(`id == "${id}"`)[0];
         let targetReflections = reflections.reflection.filtered(`formattedDate == "${formattedDate}"`);
@@ -70,8 +70,7 @@ exports.writeReflection = (req, res, next) => {
             .required()
     });
     const { id } = req.filteredUser;
-    const user = req.filteredUser;
-    const { memo, difficulty, programName, finishedSet, week, day } = req.body;
+    const { memo, difficulty, programName, finishedSet, week, day, pullupCount } = req.body;
     const { error, value } = schema.validate({
         memo: memo,
         difficulty: difficulty
@@ -92,7 +91,8 @@ exports.writeReflection = (req, res, next) => {
                 programName: programName,
                 finishedSet: finishedSet,
                 week: parseInt(week),
-                day: parseInt(day)
+                day: parseInt(day),
+				pullupCount: parseInt(pullupCount)
             });
         });
         console.log('\x1b[46m%s\x1b[0m', 'WRITE_REFLECTION');
@@ -105,7 +105,8 @@ exports.writeReflection = (req, res, next) => {
             programName,
             finishedSet,
             week,
-            day
+            day,
+			pullupCount
         );
         res.send({
 			reflections: result.reflection
@@ -134,7 +135,7 @@ exports.editReflection = (req, res, next) => {
 		console.log('\x1b[46m%s\x1b[0m', 'EDIT_REFLECTION');
         console.log('\x1b[42m%s\x1b[0m', 'EDITTED_REFLECTION:');
 		console.table(JSON.parse(JSON.stringify(targetReflection)));
-        res.send(reflections);
+        res.send(reflections.reflection);
     } catch (err) {
         next(err);
     }

@@ -19,7 +19,8 @@ const ReflectionSchema = {
 		programName: 'string',
 		finishedSet: 'string',
 		week: 'int',
-		day: 'int'
+		day: 'int',
+		pullupCount: 'int'
 	}
 }
 
@@ -31,7 +32,7 @@ const ReflectionSchema = {
 let summaryRealm = new Realm({
 	path: './realmDB/summary.realm',
 	schema: [SummarySchema, ReflectionSchema],
-	schemaVersion: 1,
+	schemaVersion: 2,
 	migration: function(oldRealm, newRealm) {
 		newRealm.deleteAll();
 	}
