@@ -18,6 +18,7 @@ exports.getProgram = (req, res, next) => {
 	let currentProgram = _.find(programs, obj => obj.name == program)['sets'][week];
 	console.log("\x1b[46m%s\x1b[0m", 'GET_PROGRAM');
 	console.log("\x1b[42m%s\x1b[0m", 'CURRENT_PROGRAM:', program);
+	console.table(currentProgram.set);
 	res.send(
 		currentProgram
 	);

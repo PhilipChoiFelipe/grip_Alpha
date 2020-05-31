@@ -24,7 +24,7 @@ const StateSchema = {
 	name: 'State',
 	properties: {
 		program: {type: 'string', optional: true},
-		totalPullups: {type: 'int', optional: true},
+		totalPullups: {type: 'int', optional: true, default: 0},
 		maxPullups: {type: 'int', optional: true},
 		week:{type: 'int', optional: true},
 		day:{type: 'int', optional: true},
