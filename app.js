@@ -6,7 +6,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var allowCrossDomain = require('./lib/middleware/CORS');
-const { PORT } = process.env;
+//Port # from heroku
+// const { PORT } = process.env;
+const PORT = process.env.PORT || 8000;
 
 var api = require('./routes/index');
 
