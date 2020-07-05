@@ -177,7 +177,7 @@ exports.signUp = (req, res, next) => {
 exports.sendVerifyingMail = (req, res, next) => {
 	let user = req.user[0];
 	// console.log('email User:', JSON.stringify(user));
-	const link = `"https://grip-alpha.herokuapp.com//auth/verify/${user.id}"`;
+	const link = `"https://grip-alpha.herokuapp.com/auth/verify/${user.id}"`;
 	console.log('verifying link: ', link);
 	sendMail.sendMail(
 		`${user.auth.email}`,
