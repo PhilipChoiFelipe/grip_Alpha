@@ -177,7 +177,7 @@ exports.signUp = (req, res, next) => {
 exports.sendVerifyingMail = (req, res, next) => {
 	let user = req.user[0];
 	// console.log('email User:', JSON.stringify(user));
-	const link = `"pullup-alpha-fzetd.run.goorm.io/auth/verify/${user.id}"`;
+	const link = `"https://grip-alpha.herokuapp.com//auth/verify/${user.id}"`;
 	console.log('verifying link: ', link);
 	sendMail.sendMail(
 		`${user.auth.email}`,
@@ -216,7 +216,7 @@ exports.verify = (req, res, next) => {
 			summary: user.summary
 		};
 		// res.redirect('https://pullup-reactnative-ehuzf.run.goorm.io');
-		res.send('WELCOME TO MINSEOK WORLD!')
+		res.send('your account is verified! Go back to the app and login with your email!')
 	} catch (error) {
 		next(error);
 	}
