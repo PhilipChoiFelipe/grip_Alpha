@@ -19,7 +19,7 @@
     "heroku": "^7.41.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "morgan": "~1.9.0",
+    "morgan": "~1.9.1",
     "nodemailer": "^6.4.6",
     "nodemailer-express-handlebars": "^4.0.0",
     "realm": "^5.0.3",
